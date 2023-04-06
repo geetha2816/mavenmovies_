@@ -244,4 +244,108 @@ order by total desc;
 
 
 
+select * from customers
+where country in ('usa','norway')
+
+-- name contains a-c anywhere
+select * from customers
+where contactfirstname regexp '.[a-c]'
+
+-- name not starting with letter a
+select * from customers
+where contactfirstname regexp '^an?'
+
+select * from customers
+where contactfirstname regexp '[a-e][a-f][^a]'
+
+select * from customers
+where contactfirstname regexp 'an|pm'
+
+select * from orders;
+select * from orderdetails;
+
+select status,
+sum(quantityOrdered*priceeach)
+from orders
+inner join orderdetails
+using(ordernumber)
+group by status;
+
+
+
+use mavenmovies;
+select * from actor
+where first_name like '^m'
+
+-- count the number of cities in a country
+
+delimiter //
+ 
+ create procedure cities_count(IN country_name CHAR(10), OUT city_count INT)
+ BEGIN
+ SELECT COUNT(*) into city_count from city join country on city.country_id = country.country_id
+ where country = country_name;
+end //
+
+
+delimiter //
+create procedure my_loops_even(IN user_input int)
+begin
+ declare num int default 0;
+ declare sum int default 0;
+ while num < user_input do
+ set sum = sum + num;
+ set num = num + 2;
+ end while;
+ select sum;
+ end //
+ 
+drop procedure my_loops_fac;
+
+DELIMITER //
+CREATE PROCEDURE LoopDemo()
+BEGIN
+	DECLARE x  INT;
+	DECLARE str  VARCHAR(255);
+	SET x = 1;
+	SET str =  '';
+	loop_label:  LOOP
+		IF  x > 10 THEN 
+			LEAVE  loop_label;
+		END  IF;
+            
+		SET  x = x + 1;
+		IF  (x mod 2) THEN
+			ITERATE  loop_label;
+		ELSE
+			SET  str = CONCAT(str,x,',');
+		END  IF;
+	END LOOP;
+	SELECT str;
+END //
+
+drop procedure whileeloop;
+DELIMITER //
+create procedure whileeloop(IN User_input int)
+begin
+declare num int default 1;
+declare res varchar(50);
+set res = cast(num as char);
+while num < User_input do
+set num = num+2;
+set res = concat(res,',',num);
+end while;
+select res;
+end //
+
+
+delimiter//
+create procedure product_even(in user_input int)
+begin
+declare num int default 1;
+declare res varchar(50);
+set res = s
+while 
+
+end //
 
